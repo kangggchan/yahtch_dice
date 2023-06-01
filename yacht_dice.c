@@ -27,9 +27,9 @@ void sigtstp_handler(int sig)
 
 void display_menu(void)
 {
-    printf("Welcome to Yahtzee!\n");
+    printf("Welcome to Yacht Dice!\n");
     printf("1. Print Game Rules\n");
-    printf("2. Start a Game of Yahtzee\n");
+    printf("2. Start a Game of Yacht Dice\n");
     printf("3. Exit\n");
 }
 
@@ -60,7 +60,7 @@ int menu_select(void) // continues to display menu until option requirements are
     do {
         display_menu();
         option = get_option();
-        system("cls");
+        system("clear");
     } while (!evaluate_option(option));
     return option;
 }
@@ -511,7 +511,7 @@ void take_turn(int score_card[])
         display_score_card(score_card); // showing user score card at beginning of round and after every roll
         roll_and_print_dice(actual_dice, reroll); // updating dice based on rerolls
         roll_again = roll_again_question(rolls, reroll); // offering reroll if less than 3 rolls
-        system("cls");
+        system("clear");
     }
 
     count_dice(actual_dice, frequency);
@@ -524,7 +524,7 @@ void take_turn(int score_card[])
     } while (!evaluate_score_card_option(option, score_card, frequency)); // requesting a score card option until input is valid
 
     calculate_score_for_option(score_card, frequency, option); // calculating score card update
-    system("cls");
+    system("clear");
     display_score_card(score_card); // showing the resulting scorecard
     char character = '\0';
     printf("Press any non-whitespace character to end your turn: ");
@@ -546,7 +546,7 @@ void play_game(int num_players) {
         pid = fork();
 
         if (pid == 0) {
-            system("cls");
+            system("clear");
             printf("Round %d:\n", round);
             printf("\nIt's your turn, Player %d!\n", player_turn + 1);
             if (player_turn == 0) take_turn(player_1_scorecard);
@@ -574,7 +574,7 @@ void play_game(int num_players) {
         kill(pid, SIGKILL);
     }
 
-    system("cls"); // clearing screen to clean up output
+    system("clear"); // clearing screen to clean up output
     printf("Game finished.\n");
     printf("Final results is in the result.txt file.\n");
     player_1_score = score_counting(player_1_scorecard); // displaying end results
@@ -585,7 +585,7 @@ void play_game(int num_players) {
 
 void display_rules(void) // shows rules
 {
-    printf("\nYahtzee is a dice game played with two players. The objective of the game\n"
+    printf("\nYacht Dice is a dice game played with two players. The objective of the game\n"
            "is to score the highest number of points by rolling dice and selecting categories to score\n"
            "based on the outcomes of the rolls.\n"
            "At the beginning of the game, each player starts with a score of 0.\n"
@@ -616,7 +616,7 @@ int main() {
     signal(SIGINT, sigint_handler);    // Register SIGINT handler
     signal(SIGTSTP, sigtstp_handler);  // Register SIGTSTP handler
 
-    printf("Welcome to Yahtzee!\n");
+    printf("Welcome to Yacht Dice!\n");
     int option = 0, program_running = 1;
 
     while (program_running)
@@ -639,3 +639,4 @@ int main() {
     }
     return 0;
 }
+
